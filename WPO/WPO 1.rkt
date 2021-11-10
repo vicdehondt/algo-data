@@ -19,3 +19,16 @@
         (iterate (cdr current) (- counter 1))))
   (iterate l n))
 
+; Oefening 6
+(define (last-of-list l)
+  (define (iter lst result)
+    (if (null? lst)
+        result
+        (iter (cdr lst) (car lst))))
+  (iter l '()))
+
+(define (last-of-vector v)
+  (let ((l (- (vector-length v) 1)))
+    (if (zero? l)
+        '()
+        (vector-ref v l))))
