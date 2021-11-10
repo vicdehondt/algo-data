@@ -1,3 +1,4 @@
+; Oefening 1
 ; (cons: any any -> pair)
 ; (car: pair -> any)
 ; (cdr: pair -> any)
@@ -17,3 +18,4 @@
         current
         (iterate (cdr current) (- counter 1))))
   (iterate l n))
+
