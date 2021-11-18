@@ -1,0 +1,30 @@
+#lang r7rs
+
+;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+;-*-*                                                                 *-*-
+;-*-*                            Triples                              *-*-
+;-*-*                                                                 *-*-
+;-*-*                       Wolfgang De Meuter                        *-*-
+;-*-*                   2021 Software Languages Lab                   *-*-
+;-*-*                    Vrije Universiteit Brussel                   *-*-
+;-*-*                                                                 *-*-
+;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+
+
+(import (rnrs base)
+        (srfi :9)
+        (rnrs control)
+        (rnrs arithmetic bitwise)
+        (rnrs bytevectors)
+        (rnrs io simple))
+
+(define-record-type trons
+  (trons a u d)
+  trons?
+  (a car3 set-car3!)
+  (u cmr3 set-cmr3!)
+  (d cdr3 set-cdr3!))
+
+(define t (trons 1 2 3))

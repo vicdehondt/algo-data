@@ -1,0 +1,25 @@
+#lang r7rs
+
+
+(import  (a-d examples person (3))
+         ;(a-d examples person (2))
+         ;(a-d examples person (1))
+         (rnrs base)
+         (rnrs io simple))
+
+(define jef      (new "Jef" "Vandenbrande" 30 40000))
+(define anoushka (new "Anoushka" "Sheremetyevo"31 50000))
+
+(define (birthday! p)
+  (age! p (+ 1 (age p))))
+
+(define (earns-more? p1 p2)
+  (> (salary p1) (salary p2)))
+
+(define (communism! p1 p2)
+  (define p1-sal (salary p1))
+  (define p2-sal (salary p2))
+  (define average  (/ (+ p1-sal p2-sal) 2))
+  (salary! p1 average)
+  (salary! p2 average)
+  average)
