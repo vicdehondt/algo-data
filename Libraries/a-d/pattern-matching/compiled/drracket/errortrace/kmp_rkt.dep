@@ -1,0 +1,1 @@
+("8.3" tarm64osx ("be16e64dd2c33ebd7923df0cdcdd00066320257d" . "78d52c0ad3b25e02169c3c7d9633cd853c202ce8") (collects #"errortrace" #"errortrace-key.rkt") (collects #"r7rs" #"base.rkt") (collects #"r7rs" #"lang" #"reader.rkt") (collects #"r7rs" #"main.rkt") (collects #"r7rs" #"write.rkt") (collects #"racket" #"base.rkt") (collects #"racket" #"runtime-config.rkt"))
