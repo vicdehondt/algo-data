@@ -20,11 +20,16 @@
           first last has-next? has-previous? next previous)
   (import (except (scheme base) length))
   (begin
-    (define make-list-node cons)
-    (define list-node-val car)
-    (define list-node-val! set-car!)
-    (define list-node-next cdr)
-    (define list-node-next! set-cdr!)
+    ;(define make-list-node cons)
+    (define make-list-node (lambda (a b) (vector a b)))
+    ;(define list-node-val car)
+    (define list-node-val (lambda (v) (vector-ref v 0)))
+    ;(define list-node-val! set-car!)
+    (define list-node-val! (lambda (v e) (vector-set! v 0 e)))
+    ;(define list-node-next cdr)
+    (define list-node-next (lambda (v) (vector-ref v 1)))
+    ;(define list-node-next! set-cdr!)
+    (define list-node-next! (lambda (v e) (vector-set! v 1 e)))
  
     (define-record-type positional-list 
       (make h e)

@@ -19,8 +19,8 @@
           length empty? full? update! peek
           first last has-next? has-previous? next previous)
   (import (except (scheme base) length list? map for-each)
-          ;(a-d positional-list single-linked))
-          (a-d positional-list vectorial))
+          (a-d positional-list single-linked))
+          ;(a-d positional-list vectorial))
   ;(a-d positional-list double-linked))
   ;(a-d positional-list augmented-double-linked))
   (begin

@@ -55,3 +55,5 @@
       (let ((result (vector-ref (storage q) (head q))))
         (head! q (remainder (+ (head q) 1) default-size))
         result))))
+
+(define test (new))
