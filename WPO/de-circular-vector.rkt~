@@ -3,10 +3,10 @@
 ;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 ;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 ;-*-*                                                                 *-*-
-;-*-*           Queues (Slow Positional List Implementation)          *-*-
+;-*-*                     Queues (Circular Vector)                    *-*-
 ;-*-*                                                                 *-*-
 ;-*-*                       Wolfgang De Meuter                        *-*-
-;-*-*                  2018  Software Languages Lab                   *-*-
+;-*-*                  2011  Software Languages Lab                   *-*-
 ;-*-*                   Vrije Universiteit Brussel                    *-*-
 ;-*-*                                                                 *-*-
 ;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
@@ -14,41 +14,46 @@
 
 (define-library (queue)
   (export new queue? enqueue! serve! peek full? empty?)
-  (import (prefix plist: (a-d positional-list adt))
-          (except (scheme base) length map for-each ))
+  (import (scheme base))
   (begin
-    
+   
+    (define default-size 5)
     (define-record-type queue
-      (make p)
+      (make s h r)
       queue?
-      (p plist))
+      (s storage)
+      (h head head!)
+      (r rear rear!))
  
     (define (new)
-      (make (plist:new eq?)))
- 
-    (define (enqueue! q val)
-      (define plst (plist q))
-      (if (full? q)
-          (error "full queue (enqueue!)" q)
-          (plist:add-before! plst val)))
- 
-    (define (peek q)
-      (define plst (plist q))
-      (if (= (plist:length plst) 0)
-          (error "empty queue (peek)" q))
-      (plist:peek plst (plist:last plst)))
- 
-    (define (serve! q)
-      (define plst (plist q))
-      (define last-position (plist:last plst))
-      (if (plist:empty? plst)
-          (error "queue empty (pop)" q))
-      (let ((val (plist:peek plst last-position)))
-        (plist:delete! plst last-position)
-        val))
+      (make (make-vector default-size) 0 0))
  
     (define (empty? q)
-      (plist:empty? (plist q)))
+      (= (head q)
+         (rear q)))
  
     (define (full? q)
-      (plist:full? (plist q)))))
+      (= (remainder (+ (rear q) 1) default-size)
+         (head q)))
+ 
+    (define (enqueue! q val)
+      (if (full? q)
+          (error "full queue (enqueue!)" q))
+      (let ((new-rear (remainder (+ (rear q) 1) default-size)))
+        (vector-set! (storage q) (rear q) val)
+        (rear! q new-rear))
+      q)
+ 
+    (define (peek q)
+      (if (empty? q)
+          (error "empty queue (peek)" q))
+      (vector-ref (storage q) (head q)))
+ 
+    (define (serve! q)
+      (if (empty? q)
+          (error "empty queue (peek)" q))
+      (let ((result (vector-ref (storage q) (head q))))
+        (head! q (remainder (+ (head q) 1) default-size))
+        result))))
+
+(define test (new))

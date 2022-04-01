@@ -1,0 +1,42 @@
+#lang r7rs
+(import (scheme base)
+        (scheme write)
+        (scheme cxr))
+; Oef 4
+(define (make-index-vector n)
+  (define index-vector (make-vector n 0))
+  (define (iter i)
+    (if (< i n)
+        (begin
+          (vector-set! index-vector i i)
+          (iter (+ i 1)))
+        index-vector))
+  (iter 0))
+
+(define (selection-sort input-vector <<?)
+  (define vector (make-index-vector (vector-length input-vector)))
+  (define (swap vector i j)
+    (let ((keep (vector-ref vector i)))
+      (vector-set! vector i (vector-ref vector j))
+      (vector-set! vector j keep)))
+  (let outer-loop
+    ((outer-idx 0))
+    (swap vector
+          outer-idx 
+          (let inner-loop
+            ((inner-idx (+ outer-idx 1))
+             (smallest-idx outer-idx))
+            (cond 
+              ((>= inner-idx (vector-length input-vector))
+               smallest-idx)
+              ((<<? (vector-ref input-vector (vector-ref vector inner-idx))
+                    (vector-ref input-vector (vector-ref vector smallest-idx)))
+               (inner-loop (+ inner-idx 1) inner-idx))
+              (else
+               (inner-loop (+ inner-idx 1) smallest-idx)))))
+    (if (< outer-idx (- (vector-length input-vector) 1))
+        (outer-loop (+ outer-idx 1))))
+  vector)
+
+(define sort selection-sort)
+(define test (vector 9 2 4 8 6 1 5 4 8))

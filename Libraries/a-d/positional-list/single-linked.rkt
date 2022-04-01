@@ -1,25 +1,3 @@
-#lang r7rs
-
-;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-;-*-*                                                                 *-*-
-;-*-*                    Linked Positional Lists                      *-*-
-;-*-*                                                                 *-*-
-;-*-*                       Wolfgang De Meuter                        *-*-
-;-*-*                   2011  Software Languages Lab                  *-*-
-;-*-*                   Vrije Universiteit Brussel                    *-*-
-;-*-*                                                                 *-*-
-;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-;-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
-
-(define-library (linked-positional-list)
-  (export new positional-list? equality
-          attach-first! attach-last! attach-middle!
-          detach-first! detach-last! detach-middle!
-          length empty? full? update! peek
-          first last has-next? has-previous? next previous)
-  (import (except (scheme base) length))
-  (begin
     ;(define make-list-node cons)
     (define make-list-node (lambda (a b) (vector a b)))
     ;(define list-node-val car)
@@ -136,4 +114,4 @@
       plst)
  
     (define (peek plst pos)
-      (list-node-val pos))))
+      (list-node-val pos))

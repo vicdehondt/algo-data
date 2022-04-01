@@ -15,7 +15,7 @@
 (define-library (positional-list adt)
   (export new from-scheme-list positional-list?
           next previous 
-          map for-each
+          map accumulate for-each
           find delete! peek update! add-before! add-after!
           first last has-next? has-previous?
           length empty? full?)
@@ -52,6 +52,13 @@
                                     curr)
                         curr))
                 result))))
+
+    (define (accumulate plst combiner null)
+      (define (iter pos result)
+        (if (has-next? plst pos)
+            (iter (next plst pos) (combiner (peek plst pos) result))
+            (combiner (peek plst pos) result)))
+      (iter (first plst) null))
  
     (define (for-each plst f)
       (if (not (empty? plst))

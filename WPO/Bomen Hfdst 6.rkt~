@@ -1,0 +1,19 @@
+#lang r7rs
+(import (scheme base)
+        (scheme write)
+        (scheme cxr)
+        (prefix (a-d tree binary-tree) tree:))
+
+; Oef 1
+(define (count-leaves tree)
+  ...)
+
+(define the-tree (tree:new 1
+                           (tree-new 2
+                                     tree:null-tree
+                                     tree:null-tree)
+                           (tree-new 5
+                                     (tree:new 7
+                                               tree:null-tree
+                                               tree:null-tree)
+                                     (tree:null-tree))))
